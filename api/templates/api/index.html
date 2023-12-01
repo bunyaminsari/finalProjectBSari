@@ -1,0 +1,23 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NetDetective API Integration</title>
+</head>
+<body>
+    <h1>NetDetective API Data</h1>
+    <div>
+        <!-- Display data retrieved from the API -->
+        {% if data %}
+            <p>IP Address: {{ data.ipAddress }}</p>
+            <p>Is VPN: {{ data.isVpn }}</p>
+            <p>Is Data Center: {{ data.isDataCenter }}</p>
+            <!-- Display other fields as needed -->
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
