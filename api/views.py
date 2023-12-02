@@ -52,3 +52,36 @@ def detail(request, item_id):
         return render(request, 'api/404.html')
 
     return render(request, 'api/details.html', {'item': item})
+
+
+# views.py
+
+import requests
+from django.shortcuts import render
+from .api_keys import NETDETECTIVE_API_KEY
+
+
+def query(request):
+    if request.method == 'POST':
+        ip_address = request.POST.get('ip_address')
+
+        url = "https://netdetective.p.rapidapi.com/query"
+        headers = {
+            "X-RapidAPI-Key": NETDETECTIVE_API_KEY,
+            "X-RapidAPI-Host": "netdetective.p.rapidapi.com"
+        }
+        params = {
+            "ipaddress": ip_address  # Pass the entered IP address to the API
+        }
+
+        response = requests.get(url, headers=headers, params=params)
+
+        if response.status_code == 200:
+            result = response.json()['result']
+        else:
+            # Handle API request failure
+            result = None
+
+        return render(request, 'api/query.html', {'result': result})
+
+    return render(request, 'api/query.html', {'result': None})

@@ -1,0 +1,28 @@
+<!-- query.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query NetDetective API</title>
+</head>
+<body>
+    <h1>Query NetDetective API</h1>
+    <form method="post" action="{% url 'query' %}">
+        {% csrf_token %}
+        <label for="ip_address">Enter IP Address:</label>
+        <input type="text" id="ip_address" name="ip_address" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div>
+        <!-- Display retrieved data -->
+        {% if result %}
+            <!-- Display the result received from the API -->
+            <p>IP Address: {{ result.ipAddress }}</p>
+            <p>Is VPN: {{ result.isVpn }}</p>
+            <!-- Display other relevant information -->
+        {% endif %}
+    </div>
+</body>
+</html>
