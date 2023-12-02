@@ -25,7 +25,6 @@ def index(request):
         # Log the exception to see what went wrong
         print(f"Error occurred: {e}")
         retrieved_data = {}
-    print(retrieved_data)
     return render(request, 'api/index.html', {'data': retrieved_data})
 
 
@@ -33,23 +32,33 @@ def query(request):
     if request.method == 'POST':
         ip_address = request.POST.get('ip_address')
 
-        url = "https://netdetective.p.rapidapi.com/query"
-        headers = {
-            "X-RapidAPI-Key": NETDETECTIVE_API_KEY,
-            "X-RapidAPI-Host": "netdetective.p.rapidapi.com"
-        }
-        params = {
-            "ipaddress": ip_address  # Pass the entered IP address to the API
-        }
+        try:
+            url = "https://netdetective.p.rapidapi.com/query"
+            headers = {
+                "X-RapidAPI-Key": NETDETECTIVE_API_KEY,
+                "X-RapidAPI-Host": "netdetective.p.rapidapi.com"
+            }
+            params = {
+                "ipaddress": ip_address  # Pass the entered IP address to the API
+            }
 
-        response = requests.get(url, headers=headers, params=params)
+            response = requests.get(url, headers=headers, params=params)
 
-        if response.status_code == 200:
-            result = response.json()['result']
-        else:
-            # Handle API request failure
+            if response.status_code == 200:
+                result = response.json()['result']
+            else:
+                # Handle API request failure
+                result = None
+        except requests.RequestException as e:
+            # Handle request exceptions (e.g., connection error, timeout)
+            print(f"Request Exception: {e}")
+            result = None
+        except Exception as ex:
+            # Handle other exceptions
+            print(f"An error occurred: {ex}")
             result = None
 
         return render(request, 'api/query.html', {'result': result})
 
     return render(request, 'api/query.html', {'result': None})
+
