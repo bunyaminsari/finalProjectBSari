@@ -1,0 +1,33 @@
+<!-- profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <!-- Add your stylesheets or custom CSS here -->
+</head>
+<body>
+    <h1>User Profile</h1>
+    <h2>Welcome, {{ user.username }}!</h2>
+
+    <h3>User Details:</h3>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+
+    <!-- Display additional profile-related information if available -->
+    {% if user_profile %}
+        <h3>Additional Profile Information:</h3>
+        <!-- Example: Displaying user's profile data -->
+        <p>First Name: {{ user_profile.first_name }}</p>
+        <p>Last Name: {{ user_profile.last_name }}</p>
+        <!-- Add other profile fields as needed -->
+    {% else %}
+        <p>No additional profile information available.</p>
+    {% endif %}
+
+    <!-- Add other content or sections as required -->
+
+    <a href="{% url 'logout' %}">Logout</a>  <!-- Example logout link -->
+</body>
+</html>
