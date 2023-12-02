@@ -6,4 +6,5 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),  # URL for the index page
     path('query/', views.query, name='query'),
+
 ]

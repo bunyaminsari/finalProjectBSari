@@ -1,10 +1,9 @@
-import requests
-from django.shortcuts import render
-from .api_keys import NETDETECTIVE_API_KEY
+
 
 import requests
 from django.shortcuts import render
 from .api_keys import NETDETECTIVE_API_KEY
+# from django.contrib.auth import authenticate, login
 
 
 def index(request):
@@ -62,3 +61,18 @@ def query(request):
 
     return render(request, 'api/query.html', {'result': None})
 
+
+# def app_login(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             # Redirect to a success page or perform other actions
+#             return redirect('home')  # Redirect to the home page
+#         else:
+#             # Handle invalid login
+#             return render(request, 'registration/login.html', {'error': 'Invalid credentials'})
+#     else:
+#         return render(request, 'registration/login.html')
