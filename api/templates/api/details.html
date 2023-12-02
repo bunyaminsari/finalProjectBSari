@@ -4,15 +4,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Details</title>
+    <title>Item Details</title>
 </head>
 <body>
-    <h1>Details</h1>
+    <h1>Item Details</h1>
     <div>
-        <!-- Display detailed information for a specific item -->
-        <h2>{{ item.title }}</h2>
-        <p>Description: {{ item.description }}</p>
-        <!-- Display other relevant details -->
+        {% if item %}
+            <p>Item ID: {{ item.id }}</p>
+            <p>Title: {{ item.title }}</p>
+            <p>Description: {{ item.description }}</p>
+            <!-- Display other details for the item -->
+             <!-- Button to navigate back to the index page -->
+        {% else %}
+            <p>Item not found.</p>
+        {% endif %}
     </div>
 </body>
 </html>

@@ -14,7 +14,28 @@
             <p>IP Address: {{ data.ipAddress }}</p>
             <p>Is VPN: {{ data.isVpn }}</p>
             <p>Is Data Center: {{ data.isDataCenter }}</p>
-            <!-- Display other fields as needed -->
+            <p>Is Brute Force: {{ data.isBruteForce }}</p>
+            <p>Is Spam: {{ data.isSpam }}</p>
+            <p>Is Bogon: {{ data.isBogon }}</p>
+            <p>Is Proxy Http: {{ data.isProxyHttp }}</p>
+            <p>Is Proxy Socks: {{ data.isProxySocks }}</p>
+            <p>Is Proxy Web: {{ data.isProxyWeb }}</p>
+            <p>Is Proxy Other: {{ data.isProxyOther }}</p>
+            <p>Is SMTP Relay: {{ data.isSmtpRelay }}</p>
+            <p>Is Web Vulnerable: {{ data.isWebVuln }}</p>
+            <p>Is NoMail: {{ data.isNoMail }}</p>
+            <p>Is Zombie: {{ data.isZombie }}</p>
+            <p>Is Potential Zombie: {{ data.isPotentialZombie }}</p>
+            <p>Is Dynamic: {{ data.isDynamic }}</p>
+            <p>Is No Server: {{ data.isNoServer }}</p>
+            <p>Is Bad Configuration: {{ data.isBadConf }}</p>
+            <p>Is DDOS: {{ data.isDDos }}</p>
+            <p>Is Open DNS: {{ data.isOpenDns }}</p>
+            <p>Is Compromised: {{ data.isCompromised }}</p>
+            <p>Is Worm: {{ data.isWorm }}</p>
+            <p>Is IRC Drone: {{ data.isIrcDrone }}</p>
+            <p>Is Not Spam: {{ data.isNotSpam }}</p>
+
         {% else %}
             <p>No data available.</p>
         {% endif %}
