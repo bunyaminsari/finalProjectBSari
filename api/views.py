@@ -73,7 +73,6 @@ def query(request):
 @login_required
 def profile_view(request):
     user = request.user
-
     try:
         user_profile = Profile.objects.get(user=user)
     except Profile.DoesNotExist:

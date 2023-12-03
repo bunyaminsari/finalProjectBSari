@@ -5,11 +5,13 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # Add additional fields as needed for the profile
-    # For example:
-    # bio = models.TextField(blank=True)
-    # profile_image = models.ImageField(upload_to='profile_images/', blank=True)
-    # ...
+    @property
+    def first_name(self):
+        return self.user.first_name
+
+    @property
+    def last_name(self):
+        return self.user.last_name
 
     def __str__(self):
         return f"Profile for {self.user.username}"
