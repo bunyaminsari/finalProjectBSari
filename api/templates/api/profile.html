@@ -1,13 +1,12 @@
-<!-- profile.html -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Profile</title>
-    <!-- Add your stylesheets or custom CSS here -->
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block content %}
+
     <h1>User Profile</h1>
     <h2>Welcome, {{ user.username }}!</h2>
 
@@ -29,5 +28,5 @@
     <!-- Add other content or sections as required -->
 
     <a href="{% url 'logout' %}">Logout</a>  <!-- Example logout link -->
-</body>
-</html>
+
+{% endblock %}

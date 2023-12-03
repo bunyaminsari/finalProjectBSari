@@ -1,11 +1,10 @@
-<!-- signup.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sign Up</title>
-</head>
-<body>
+{% block title %}
+    Signup
+{% endblock %}
+
+{% block content %}
     <h2>Sign Up</h2>
     <form method="post">
         {% csrf_token %}
@@ -24,5 +23,4 @@
 
         <button type="submit">Sign Up</button>
     </form>
-</body>
-</html>
+{% endblock %}

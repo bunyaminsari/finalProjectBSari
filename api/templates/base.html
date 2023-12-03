@@ -11,13 +11,17 @@
 
     <!-- Navbar -->
     <div class="ui inverted menu">
-        <a class="active item">Home</a>
-        <a class="item">About</a>
-        <a class="item">Services</a>
+        <a class="active item" href="{% url 'index' %}">Home</a>
+        <a class="item" href="{% url 'profile' %}">Profile</a>
+        <a class="item" href="{% url 'query' %}">Search</a>
         <div class="right menu">
-            <a class="item">Login</a>
-            <a class="item">Signup</a>
-        </div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="item">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="item">Login</a>
+            <a href="{% url 'signup' %}" class="item">Signup</a>
+        {% endif %}
+    </div>
     </div>
 
     <!-- Content -->

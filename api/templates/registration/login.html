@@ -1,13 +1,12 @@
-<!-- login.html -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <!-- Add your stylesheets or custom CSS here -->
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+
     <h1>Login to Your Account</h1>
     <form method="post">
         {% csrf_token %}
@@ -17,5 +16,5 @@
         <input type="password" id="password" name="password" required><br>
         <button type="submit">Login</button>
     </form>
-</body>
-</html>
+
+{% endblock%}

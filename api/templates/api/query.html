@@ -1,12 +1,11 @@
-<!-- query.html -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Query NetDetective API</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block content %}
     <h1>Query NetDetective API</h1>
     <form method="post" action="{% url 'query' %}">
         {% csrf_token %}
@@ -41,5 +40,5 @@
         {% endif %}
 
     </div>
-</body>
-</html>
+
+{% endblock %}
