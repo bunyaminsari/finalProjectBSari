@@ -32,7 +32,7 @@ class Query(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ip_address = models.CharField(max_length=50, default=None)
 
-    # Timestamps (optional)
+    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

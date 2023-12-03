@@ -52,7 +52,7 @@ def query(request):
 
             if response.status_code == 200:
                 result = response.json()['result']
-                query = Query.objects.create(user=request.user, ip_address=ip_address)  # Add other fields as needed
+                query = Query.objects.create(user=request.user, ip_address=ip_address)
             else:
                 # Handle API request failure
                 result = None
