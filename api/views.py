@@ -1,11 +1,10 @@
-
 import requests
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from .api_keys import NETDETECTIVE_API_KEY
-from .models import Profile
+from .models import Profile, Query
 from .forms import SignUpForm
 
 
@@ -35,6 +34,7 @@ def index(request):
 @login_required()
 # Custom IP Query Page
 def query(request):
+    result = None  # Initialize result variable
     if request.method == 'POST':
         ip_address = request.POST.get('ip_address')
 
@@ -52,9 +52,11 @@ def query(request):
 
             if response.status_code == 200:
                 result = response.json()['result']
+                query = Query.objects.create(user=request.user, ip_address=ip_address)  # Add other fields as needed
             else:
                 # Handle API request failure
                 result = None
+
         except requests.RequestException as e:
             # Handle request exceptions (e.g., connection error, timeout)
             print(f"Request Exception: {e}")
@@ -63,10 +65,8 @@ def query(request):
             # Handle other exceptions
             print(f"An error occurred: {ex}")
             result = None
-
-        return render(request, 'api/query.html', {'result': result})
-
-    return render(request, 'api/query.html', {'result': None})
+    queries = Query.objects.filter(user=request.user)
+    return render(request, 'api/query.html', {'result': result, 'queries': queries})
 
 
 # Profile Page

@@ -27,3 +27,14 @@ class Profile(models.Model):
     def save_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+
+class Query(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ip_address = models.CharField(max_length=50, default=None)
+
+    # Timestamps (optional)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Query by {self.user.username} - {self.created_at}"

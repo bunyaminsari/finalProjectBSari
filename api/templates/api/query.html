@@ -24,5 +24,22 @@
             <!-- Display other relevant information -->
         {% endif %}
     </div>
+
+    <div>
+        <h1>Queries</h1>
+        {% if queries %}
+            <ul>
+                {% for query in queries %}
+                    <li>
+                        Query by: {{ query.user.username }} - IP Address: {{ query.ip_address }}
+                        <!-- Add other fields as needed -->
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No queries found.</p>
+        {% endif %}
+
+    </div>
 </body>
 </html>
