@@ -6,6 +6,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from .api_keys import NETDETECTIVE_API_KEY
 from .models import Profile
+from .forms import SignUpForm
 
 
 # IndexPage
@@ -90,3 +91,15 @@ def logout(request):
     django_logout(request)
     messages.success(request, 'You have been successfully logged out.')
     return redirect('index')  # Redirect to the index page after logout
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page, login page, or any desired URL after sign-up
+            return redirect('login')  # Redirect to the login page after successful sign-up
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
