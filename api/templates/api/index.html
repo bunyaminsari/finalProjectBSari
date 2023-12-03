@@ -6,9 +6,21 @@
     <meta charset="UTF-8">
     <title>NetDetective API Integration</title>
 </head>
+
 <body>
-    <h1>NetDetective API Data</h1>
-    <div>
+{# Message - Alerts #}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+<h1>NetDetective API Data</h1>
+{% if user.is_authenticated %}
+    <!-- Content visible to authenticated users -->
+    <p>Welcome, {{ user.username }}!</p>
+        <div>
         <!-- Display data retrieved from the API -->
         {% if data %}
             <p>IP Address: {{ data.ipAddress }}</p>
@@ -35,10 +47,34 @@
             <p>Is Worm: {{ data.isWorm }}</p>
             <p>Is IRC Drone: {{ data.isIrcDrone }}</p>
             <p>Is Not Spam: {{ data.isNotSpam }}</p>
+            {% else %}
+                <p>No data available.</p>
+            {% endif %}
+        </div>
 
+    <a href="{% url 'logout' %}">Logout</a>
+{% else %}
+    <div>
+        {% if data %}
+            <p>IP Address: {{ data.ipAddress }}</p>
+            <p>Is VPN: {{ data.isVpn }}</p>
         {% else %}
             <p>No data available.</p>
         {% endif %}
     </div>
+
+    <p>Please log in to access more content.</p>
+    <a href="{% url 'login' %}">Login</a>
+{#    <a href="{% url 'signup' %}">Sign Up</a>#}
+{% endif %}
+
+{#<form action="{% url 'logout' %}" method="post">#}
+{#    {% csrf_token %}#}
+{#    <button type="submit">Logout</button>#}
+{#</form>#}
+
 </body>
 </html>
+
+
+

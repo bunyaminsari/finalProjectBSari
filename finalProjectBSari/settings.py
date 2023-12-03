@@ -126,3 +126,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_PROFILE_MODULE = 'api.Profile'
+
+LOGIN_REDIRECT_URL = '/'  # Redirect to the homepage
+LOGOUT_REDIRECT_URL = '/'  # Redirect to the homepage

@@ -1,12 +1,14 @@
 
-
 import requests
-from django.shortcuts import render
-from .api_keys import NETDETECTIVE_API_KEY
+from django.shortcuts import render,redirect
+from django.contrib import messages
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from .api_keys import NETDETECTIVE_API_KEY
 from .models import Profile
 
 
+# IndexPage
 def index(request):
     try:
         url = "https://netdetective.p.rapidapi.com/query"
@@ -21,6 +23,7 @@ def index(request):
             retrieved_data = response.json()['result']
         else:
             retrieved_data = {}
+
     except Exception as e:
         # Log the exception to see what went wrong
         print(f"Error occurred: {e}")
@@ -28,6 +31,8 @@ def index(request):
     return render(request, 'api/index.html', {'data': retrieved_data})
 
 
+@login_required()
+# Custom IP Query Page
 def query(request):
     if request.method == 'POST':
         ip_address = request.POST.get('ip_address')
@@ -63,8 +68,7 @@ def query(request):
     return render(request, 'api/query.html', {'result': None})
 
 
-
-
+# Profile Page
 @login_required
 def profile_view(request):
     user = request.user
@@ -81,3 +85,8 @@ def profile_view(request):
 
     return render(request, 'api/profile.html', context)
 
+
+def logout(request):
+    django_logout(request)
+    messages.success(request, 'You have been successfully logged out.')
+    return redirect('index')  # Redirect to the index page after logout
