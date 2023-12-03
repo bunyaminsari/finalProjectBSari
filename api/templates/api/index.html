@@ -1,14 +1,11 @@
-<!-- index.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>NetDetective API Integration</title>
-</head>
+{% block title %}
+    Homepage
+{% endblock %}
 
-<body>
-{# Message - Alerts #}
+{% block content %}
+    {# Message - Alerts #}
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-success">
@@ -16,6 +13,7 @@
             </div>
         {% endfor %}
     {% endif %}
+
 <h1>NetDetective API Data</h1>
 {% if user.is_authenticated %}
     <!-- Content visible to authenticated users -->
@@ -67,9 +65,6 @@
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
-
-</body>
-</html>
-
+{% endblock %}
 
 
