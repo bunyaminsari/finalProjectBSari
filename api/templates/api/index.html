@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     Homepage
 {% endblock %}
@@ -14,7 +14,6 @@
         {% endfor %}
     {% endif %}
 
-<h1>NetDetective API Data</h1>
 {% if user.is_authenticated %}
     <!-- Content visible to authenticated users -->
     <p>Welcome, {{ user.username }}!</p>
@@ -50,21 +49,46 @@
             {% endif %}
         </div>
 
-    <a href="{% url 'logout' %}">Logout</a>
 {% else %}
     <div>
         {% if data %}
-            <p>IP Address: {{ data.ipAddress }}</p>
-            <p>Is VPN: {{ data.isVpn }}</p>
+            <div class="ui text container">
+                <div class="ui center aligned container">
+                    <img src="{% static 'api/cybersecurity.png' %}" alt="Cyber+">
+                    <h1 class="ui dividing header">Cyber+ App </h1>
+                    <h2 class="first">Your IP address:  <span class="ui blue header">{{ data.ipAddress }}</span></h2>
+                </div>
+            <br>
+            <table class="ui very basic collapsing celled table">
+              <thead>
+                <tr>
+                    <th>Connection</th>
+                    <th>Status</th>
+                    <th>Information</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="content">VPN</div></td>
+                  <td>{{ data.isVpn }}</td>
+                  <td class="ui label">VPN (Virtual Private Network): A secure network connection that allows users to access the internet privately and securely, encrypting data as it travels between the user's device and the VPN server.</td>
+                </tr>
+                <tr>
+                  <td><div class="content">Data Center</div></td>
+                  <td>{{ data.isDataCenter }}</td>
+                  <td class="ui label">Data Center: A facility used to house computer systems, servers, and related components, storing and managing a large amount of data, often providing services like data storage, processing, and distribution.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <p><strong>Cyber+ App</strong> utilizes <a href="https://rapidapi.com/tomwimmenhove/api/netdetective" target="_blank">NetDetective</a> is an easy-to-use API that provides information about an IP address, including, but not limited to, whether it’s known for spam, brute-force attacks, bot-nets, VPN endpoints, data center endpoints, and more.<br><br> With DetectiveIP, you can quickly and easily gather information about any IP address to help filter requests and avoid potential attacks.</p>
+    </div>
         {% else %}
             <p>No data available.</p>
         {% endif %}
     </div>
-
-    <p>Please log in to access more content.</p>
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
+
 {% endblock %}
 
 
