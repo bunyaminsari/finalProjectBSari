@@ -20,13 +20,14 @@
             <div class="ui center aligned container">
                 <img src="{% static 'api/cybersecurity.png' %}" alt="Cyber+">
                 <h1 class="ui dividing header">Cyber+ App </h1>
+                <br>
                 <h2 class="first">Your IP address:  <span class="ui blue header">{{ data.ipAddress }}</span></h2>
             </div>
         <br>
         <table class="ui very basic collapsing celled table">
           <thead>
             <tr>
-                <th>Connection</th>
+                <th></th>
                 <th>Status</th>
                 <th>Information</th>
             </tr>
@@ -45,14 +46,6 @@
           </tbody>
         </table>
         <br>
-        <div class="ui center aligned container">
-            <a href="{% url 'login' %}" class="ui primary basic button">Sign in to see more.</a>
-        </div>
-            <br>
-        <div class="ui center aligned container">
-            <p><strong>Cyber+ App</strong> utilizes <a href="https://rapidapi.com/tomwimmenhove/api/netdetective" target="_blank">NetDetective</a> is an easy-to-use API that provides information about an IP address, including, but not limited to, whether it’s known for spam, brute-force attacks, bot-nets, VPN endpoints, data center endpoints, and more.<br><br> With DetectiveIP, you can quickly and easily gather information about any IP address to help filter requests and avoid potential attacks.</p>
-        </div>
-
 </div>
     {% else %}
         <p>No data available.</p>
@@ -61,38 +54,136 @@
 
 {% if user.is_authenticated %}
     <!-- Content visible to authenticated users -->
-        <div>
+        <div class="ui text container">
         <!-- Display data retrieved from the API -->
         {% if data %}
-            <p>Is Brute Force: {{ data.isBruteForce }}</p>
-            <p>Is Spam: {{ data.isSpam }}</p>
-            <p>Is Bogon: {{ data.isBogon }}</p>
-            <p>Is Proxy Http: {{ data.isProxyHttp }}</p>
-            <p>Is Proxy Socks: {{ data.isProxySocks }}</p>
-            <p>Is Proxy Web: {{ data.isProxyWeb }}</p>
-            <p>Is Proxy Other: {{ data.isProxyOther }}</p>
-            <p>Is SMTP Relay: {{ data.isSmtpRelay }}</p>
-            <p>Is Web Vulnerable: {{ data.isWebVuln }}</p>
-            <p>Is NoMail: {{ data.isNoMail }}</p>
-            <p>Is Zombie: {{ data.isZombie }}</p>
-            <p>Is Potential Zombie: {{ data.isPotentialZombie }}</p>
-            <p>Is Dynamic: {{ data.isDynamic }}</p>
-            <p>Is No Server: {{ data.isNoServer }}</p>
-            <p>Is Bad Configuration: {{ data.isBadConf }}</p>
-            <p>Is DDOS: {{ data.isDDos }}</p>
-            <p>Is Open DNS: {{ data.isOpenDns }}</p>
-            <p>Is Compromised: {{ data.isCompromised }}</p>
-            <p>Is Worm: {{ data.isWorm }}</p>
-            <p>Is IRC Drone: {{ data.isIrcDrone }}</p>
-            <p>Is Not Spam: {{ data.isNotSpam }}</p>
+            <table class="ui very basic collapsing celled table">
+                <thead>
+                    <tr>
+                        <th>Additional</th>
+                        <th>Status</th>
+                        <th>Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="content">Brute Force</div></td>
+                        <td>{{ data.isBruteForce }}</td>
+                        <td class="ui label">Brute Force: A method used in hacking where attackers attempt to gain access to systems or accounts by trying numerous password combinations or using various techniques to break security measures.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Spam</div></td>
+                        <td>{{ data.isSpam }}</td>
+                        <td class="ui label">Spam: Unsolicited or unwanted emails or messages often sent in bulk, often containing deceptive or malicious content.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Bogon</div></td>
+                        <td>{{ data.isBogon }}</td>
+                        <td class="ui label">Bogon: IP addresses that are either invalid, not allocated, or should not appear in internet routing tables, often used by attackers to obfuscate their identity.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Proxy HTTP</div></td>
+                        <td>{{ data.isProxyHttp }}</td>
+                        <td class="ui label">Proxy HTTP: A proxy server that handles HTTP requests, acting as an intermediary between a user's device and the internet, often used for anonymity or to bypass restrictions.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Proxy Socks</div></td>
+                        <td>{{ data.isProxySocks }}</td>
+                        <td class="ui label">Proxy Socks: A proxy server protocol used for general purpose proxying, supporting multiple connection protocols and providing flexibility in routing traffic.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Proxy Web</div></td>
+                        <td>{{ data.isProxyWeb }}</td>
+                        <td class="ui label">Proxy Web: A proxy server focused on handling web-based traffic, often used to hide user IP addresses or bypass content restrictions.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Proxy Other</div></td>
+                        <td>{{ data.isProxyOther }}</td>
+                        <td class="ui label">Proxy Other: Other types of proxy servers not specifically categorized, providing alternative methods for routing network traffic.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">SMTP Relay</div></td>
+                        <td>{{ data.isSmtpRelay }}</td>
+                        <td class="ui label">SMTP Relay: A process used to forward emails from one mail server to another, often exploited by spammers to send large volumes of emails.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Web Vulnerable</div></td>
+                        <td>{{ data.isWebVuln }}</td>
+                        <td class="ui label">Web Vulnerable: A state indicating potential weaknesses or vulnerabilities in web systems, making them susceptible to cyber attacks or exploitation.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">NoMail</div></td>
+                        <td>{{ data.isNoMail }}</td>
+                        <td class="ui label">NoMail: Indicates issues related to mail delivery or mail server configuration.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Zombie</div></td>
+                        <td>{{ data.isZombie }}</td>
+                        <td class="ui label">Zombie: A compromised computer or device under the control of a hacker or attacker, often used for malicious purposes like launching attacks or sending spam.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Potential Zombie</div></td>
+                        <td>{{ data.isPotentialZombie }}</td>
+                        <td class="ui label">Potential Zombie: A computer or device showing signs of vulnerability to becoming a compromised system.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Dynamic</div></td>
+                        <td>{{ data.isDynamic }}</td>
+                        <td class="ui label">Dynamic: Refers to IP addresses that are not static and may change.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">No Server</div></td>
+                        <td>{{ data.isNoServer }}</td>
+                        <td class="ui label">No Server: Indicates a lack of a server or service for the specified IP address.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Bad Configuration</div></td>
+                        <td>{{ data.isBadConf }}</td>
+                        <td class="ui label">Bad Configuration: Suggests a misconfigured or improperly set up server or system.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">DDoS</div></td>
+                        <td>{{ data.isDDos }}</td>
+                        <td class="ui label">DDoS (Distributed Denial of Service): Signifies a potential attack attempting to disrupt services by overwhelming a target with a flood of traffic.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Open DNS</div></td>
+                        <td>{{ data.isOpenDns }}</td>
+                        <td class="ui label">Open DNS: Indicates the usage of public or open DNS servers for domain name resolution.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Compromised</div></td>
+                        <td>{{ data.isCompromised }}</td>
+                        <td class="ui label">Compromised: Suggests a system or network that has been breached or affected by unauthorized access or malicious activity.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Worm</div></td>
+                        <td>{{ data.isWorm }}</td>
+                        <td class="ui label">Worm: Represents a self-replicating malware or malicious software that can spread across systems without user intervention.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">IRC Drone</div></td>
+                        <td>{{ data.isIrcDrone }}</td>
+                        <td class="ui label">IRC (Internet Relay Chat) Drone: Signifies a computer or device infected with malware, controlled remotely through IRC channels for malicious purposes.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="content">Not Spam</div></td>
+                        <td>{{ data.isNotSpam }}</td>
+                        <td class="ui label">Not Spam: Indicates that the IP address is not identified as a source of spam activity.</td>
+                    </tr>
+                </tbody>
+            </table>
             {% else %}
                 <p>No data available.</p>
             {% endif %}
         </div>
-
-{% else %}
-    <p>You need to sign in to see more!</p>
-{% endif %}
+        {% else %}
+                <div class="ui center aligned container">
+                    <a href="{% url 'login' %}" class="ui primary button">See more</a>
+                </div>
+        {% endif %}
+        <br>
+        <br>
 
 {% endblock %}
 

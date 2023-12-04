@@ -5,8 +5,13 @@
     <meta charset="UTF-8">
     <title>{% block title %}CyberAPI App{% endblock %}</title>
     <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="{% static 'api/style.css'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <link rel="stylesheet" href="{% static 'api/style.css' %}">
+    <style>
+        .footer.segment {
+            padding: 5em 0;
+        }
+    </style>
 </head>
 <body>
 
@@ -33,10 +38,34 @@
         {% block content %}{% endblock %}
     </div>
 
+    {#Footer #}
+    <div class="ui inverted vertical footer segment">
+        <div class="ui container">
+          <div class="ui stackable inverted divided equal height stackable grid">
+            <div class="three wide column">
+              <h4 class="ui inverted header">About</h4>
+              <div class="ui inverted link list">
+                <a href="#" class="item">Home</a>
+                <a href="#" class="item">Contact Us</a>
+              </div>
+            </div>
+            <div class="three wide column">
+              <h4 class="ui inverted header">Services</h4>
+              <div class="ui inverted link list">
+                <a href="#" class="item">Query</a>
+                <a href="#" class="item">Profile</a>
+              </div>
+            </div>
+            <div class="ten wide column">
+            <p><strong>Cyber+ App</strong> utilizes <a href="https://rapidapi.com/tomwimmenhove/api/netdetective" target="_blank">NetDetective</a> is an easy-to-use API that provides information about an IP address, including, but not limited to, whether it’s known for spam, brute-force attacks, bot-nets, VPN endpoints, data center endpoints, and more.<br><br> With DetectiveIP, you can quickly and easily gather information about any IP address to help filter requests and avoid potential attacks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <!-- Include Semantic UI JavaScript (at the end for faster page load) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    <!-- Add any additional scripts -->
 
 </body>
 </html>
