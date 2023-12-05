@@ -1,20 +1,72 @@
 
-{% extends 'base.html' %}
 
-{% block title %}
-    Login
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>Sign in</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+  <style type="text/css">
+    body {
+      background-color: #FFFFFF;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+
+</head>
+<body>
 
 {% block content %}
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+      <div class="ui center aligned container">
+        <img src="{% static 'api/cybersecurity.png' %}" alt="Cyber+">
+        <h2 class="ui dividing blue header">Cyber+ App </h2>
+      </div>
+      <div>
 
-    <h1>Login to Your Account</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <button type="submit">Login</button>
+    <form class="ui large form" method="post">
+    {% csrf_token %}
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="username" id="username" placeholder="Username">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password"  id="password" placeholder="Password">
+          </div>
+        </div>
+        <button class="ui fluid large blue submit button">Sign in</button>
+      </div>
+      <div class="ui error message"></div>
     </form>
+    <div class="ui message">
+      New to us? <a href="{% url 'signup' %}">Sign Up | </a>
+      Back? <a href="{% url 'index' %}">Home</a>
+    </div>
+  </div>
+</div>
+</div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 {% endblock%}
+</body>
+</html>
+
