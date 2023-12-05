@@ -1,32 +1,31 @@
 
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     Profile
 {% endblock %}
 
 {% block content %}
 
-    <h1>User Profile</h1>
-    <h2>Welcome, {{ user.username }}!</h2>
-
-    <h3>User Details:</h3>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-
-    <!-- Display additional profile-related information if available -->
-    {% if user_profile %}
-        <h3>Additional Profile Information:</h3>
-        <!-- Example: Displaying user's profile data -->
-        <p>First Name: {{ user_profile.first_name }}</p>
-        <p>Last Name: {{ user_profile.last_name }}</p>
-        <!-- Add other profile fields as needed -->
-    {% else %}
-        <p>No additional profile information available.</p>
-    {% endif %}
-
-    <!-- Add other content or sections as required -->
-
-    <a href="{% url 'logout' %}">Logout</a>  <!-- Example logout link -->
+<div class="ui card">
+  <div class="image">
+    <img src="{% static 'api/profile.jpg' %}" alt="Profile">
+  </div>
+  <div class="content">
+    <a class="header">{{ user.first_name }} {{ user.last_name }}</a>
+    <div class="description">
+      <i class="user icon"></i> {{ user.username }}
+    </div>
+      <a>
+      <i class="envelope icon"></i>
+      {{ user.email }}
+    </a>
+  </div>
+  <div class="extra content">
+    <div class="description">
+      <span class="date">Last log in: {{ user.last_login }}</span>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
