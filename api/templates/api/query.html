@@ -10,9 +10,10 @@
     <div class="ui text container">
         <form method="post" action="{% url 'query' %}">
         {% csrf_token %}
+            <label class="ui pointing below label" for="ip_address">Please enter an IP address</label>
         <div class="ui fluid action input">
-          <input type="text" id="ip_address" name="ip_address" required placeholder="Search for an IP Address" data-dashlane-rid="9ed87ca3b190e159" data-form-type="query">
-          <button class="ui button">Search</button>
+            <input type="text" id="ip_address" name="ip_address" required placeholder="IP Address..." data-dashlane-rid="9ed87ca3b190e159" data-form-type="query">
+            <button class="ui button">Search</button>
         </div>
         </form>
     </div>
@@ -153,22 +154,32 @@
             {% endif %}
         </div>
     </div>
-
-    <div>
-        <h1>Queries</h1>
-        {% if queries %}
-            <ul>
-                {% for query in queries %}
-                    <li>
-                        Query by: {{ query.user.username }} - IP Address: {{ query.ip_address }}
-                        <!-- Add other fields as needed -->
-                    </li>
-                {% endfor %}
-            </ul>
+    <br>
+    <br>
+    <div class="ui text container">
+    {% if queries %}
+        <table class="ui very basic collapsing celled table">
+        <thead>
+          <tr>
+              <th>IP Logs</th>
+              <th></th>
+          </tr>
+        </thead>
+            {% for query in queries %}
+        <tbody>
+          <tr>
+            <td><div class="content">{{ query.ip_address}}</div></td>
+            <td>
+                <span class="ui basic label">was searched by</span> <div class="ui basic blue label">{{ query.user.username}}</div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
         {% else %}
-            <p>No queries found.</p>
+          <p>No queries found.</p>
         {% endif %}
-
     </div>
-
+    <br>
+    <br>
 {% endblock %}

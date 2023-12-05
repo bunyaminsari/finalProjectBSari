@@ -66,7 +66,8 @@ def query(request):
             print(f"An error occurred: {ex}")
             result = None
     queries = Query.objects.filter(user=request.user)
-    return render(request, 'api/query.html', {'result': result, 'queries': queries})
+    last_five_queries = Query.objects.all().order_by('-id')[:5][::-1]
+    return render(request, 'api/query.html', {'result': result, 'queries': last_five_queries})
 
 
 # Profile Page
