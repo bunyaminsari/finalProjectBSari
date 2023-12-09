@@ -2,6 +2,7 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from .api_keys import NETDETECTIVE_API_KEY
@@ -11,8 +12,6 @@ from .forms import SignUpForm
 
 # IndexPage
 def index(request):
-    errors = {}
-    success_message = None
     try:
         url = "https://netdetective.p.rapidapi.com/query"
         headers = {
@@ -23,19 +22,39 @@ def index(request):
         response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
-            success_message = "Data successfully retrieved from the API."
+            messages.success(request, "Data successfully retrieved from the API.")
             retrieved_data = response.json()['result']
         else:
             retrieved_data = {}
 
     except requests.exceptions.HTTPError as e:
-        # Using error code to display specific message
+
         if e.response.status_code == 401:
-            errors['api_error'] = "Unauthorized access. Please check your API key."
+            messages.error(request, "Unauthorized access. Please check your API key.")
         else:
-            errors['api_error'] = f"API Error: {e}"
+            messages.warning(request, f"API Error: {e}")
+
         retrieved_data = {}
-    return render(request, 'api/index.html', {'data': retrieved_data, 'errors': errors, 'success_message': success_message})
+
+    return render(request, 'api/index.html', {'data': retrieved_data})
+
+    #     if response.status_code == 200:
+    #         messages.add_message(request, messages.SUCCESS, "Data successfully retrieved from the API.")
+    #         retrieved_data = response.json()['result']
+    #     else:
+    #         retrieved_data = {}
+    #
+    # except requests.exceptions.HTTPError as e:
+    #     # Using error code to display specific message
+    #     if e.response.status_code == 401:
+    #         messages.add_message(request, messages.ERROR, "Unauthorized access. Please check your API key.")
+    #         # messages.error = "Unauthorized access. Please check your API key."
+    #     else:
+    #         # messages.error = f"API Error: {e}"
+    #         messages.add_message(request, messages.ERROR, f"API Error: {e}")
+    #
+    #     retrieved_data = {}
+    # return render(request, 'api/index.html', {'data': retrieved_data})
 
 
 @login_required()
@@ -92,6 +111,23 @@ def profile_view(request):
     }
 
     return render(request, 'api/profile.html', context)
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            # Add success message
+            messages.success(request, "You have successfully logged in.")
+            return redirect('home')
+        else:
+            # Add error message
+            messages.error(request, "Invalid username or password.")
+    return render(request, 'registration/login.html')
 
 
 def logout(request):

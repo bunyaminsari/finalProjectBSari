@@ -8,26 +8,24 @@
 {% endblock %}
 
 {% block content %}
-    {% if errors %}
-        <div class="ui {{ errors.keys|first|lower }} warning message">
-            <ul>
-                {% for error in errors.values %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 
-    {% if success_message %}
-        <div class="ui success message">
-          <i class="close icon"></i>
-          <div class="header">
-            Welcome back!
-          </div>
-          <p>{{ success_message }}</p>
-        </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="ui {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% endif %} message">
+                <i class="close icon"></i>
+                <div class="header">
+                    {% if message.tags == 'error' %}
+                        Error!
+                    {% elif message.tags == 'success' %}
+                        Success!
+                    {% elif message.tags == 'warning' %}
+                        Warning!
+                    {% endif %}
+                </div>
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
     {% endif %}
-
 
 
 {#    If the data retrieved from the API it will be displayed below. #}
