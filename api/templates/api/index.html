@@ -7,16 +7,28 @@
     Homepage
 {% endblock %}
 
-
 {% block content %}
-    {# Message - Alerts #}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success">
-                <p>{{ message }}</p>
-            </div>
-        {% endfor %}
+    {% if errors %}
+        <div class="ui {{ errors.keys|first|lower }} warning message">
+            <ul>
+                {% for error in errors.values %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
+
+    {% if success_message %}
+        <div class="ui success message">
+          <i class="close icon"></i>
+          <div class="header">
+            Welcome back!
+          </div>
+          <p>{{ success_message }}</p>
+        </div>
+    {% endif %}
+
+
 
 {#    If the data retrieved from the API it will be displayed below. #}
 <div>

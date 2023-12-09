@@ -1,5 +1,6 @@
 import requests
-from django.shortcuts import render,redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,8 @@ from .forms import SignUpForm
 
 # IndexPage
 def index(request):
+    errors = {}
+    success_message = None
     try:
         url = "https://netdetective.p.rapidapi.com/query"
         headers = {
@@ -20,15 +23,19 @@ def index(request):
         response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
+            success_message = "Data successfully retrieved from the API."
             retrieved_data = response.json()['result']
         else:
             retrieved_data = {}
 
-    except Exception as e:
-        # Log the exception to see what went wrong
-        print(f"Error occurred: {e}")
+    except requests.exceptions.HTTPError as e:
+        # Using error code to display specific message
+        if e.response.status_code == 401:
+            errors['api_error'] = "Unauthorized access. Please check your API key."
+        else:
+            errors['api_error'] = f"API Error: {e}"
         retrieved_data = {}
-    return render(request, 'api/index.html', {'data': retrieved_data})
+    return render(request, 'api/index.html', {'data': retrieved_data, 'errors': errors, 'success_message': success_message})
 
 
 @login_required()
