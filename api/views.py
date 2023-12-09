@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
-from django.contrib.auth import logout as django_logout
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from .api_keys import NETDETECTIVE_API_KEY
 from .models import Profile, Query
@@ -15,7 +15,7 @@ def index(request):
     retrieved_data = {}
     # Check if the user is authenticated & If the user is already logged in the message will be displayed once.
     if request.user.is_authenticated and not request.session.get('has_seen_welcome_message', False):
-        messages.info(request, "Welcome back, " + request.user.username + "!")
+        messages.info(request, request.user.username + ", you have just signed in!")
         request.session['has_seen_welcome_message'] = True
 
     # The success message is displayed once.
@@ -97,29 +97,6 @@ def profile_view(request):
     }
 
     return render(request, 'api/profile.html', context)
-
-
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            # Add success message
-            messages.success(request, "You have successfully logged in.")
-            return redirect('home')
-        else:
-            # Add error message
-            messages.error(request, "Invalid username or password.")
-    return render(request, 'registration/login.html')
-
-
-def logout(request):
-    django_logout(request)
-    messages.success(request, 'You have been successfully logged out.')
-    return redirect('index')  # Redirect to the index page after logout
 
 
 def signup(request):

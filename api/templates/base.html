@@ -6,7 +6,6 @@
     <title>{% block title %}CyberAPI App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'api/style.css'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-
     <style>
         .footer.segment {
             padding: 5em 0;
@@ -34,7 +33,8 @@
 
     <!-- Content -->
     <div class="ui container">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
 
     {#Footer #}
