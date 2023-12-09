@@ -8,10 +8,9 @@
 {% endblock %}
 
 {% block content %}
-
     {% if messages %}
         {% for message in messages %}
-            <div class="ui {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% endif %} message">
+            <div class="ui {% if message.tags == 'info' %}info{% elif message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% endif %} tiny message">
                 <i class="close icon"></i>
                 <div class="header">
                     {% if message.tags == 'error' %}
@@ -20,6 +19,8 @@
                         Success!
                     {% elif message.tags == 'warning' %}
                         Warning!
+                    {% elif message.tags == 'info' %}
+                        Hey there!
                     {% endif %}
                 </div>
                 <p>{{ message }}</p>
@@ -67,7 +68,7 @@
     {% endif %}
 </div>
 {#    This content is for the authentication users. #}
-{% if  user.is_authenticated %}
+{% if user.is_authenticated %}
         <div class="ui text container">
         <div class="ui dividing header"></div>
             <br>

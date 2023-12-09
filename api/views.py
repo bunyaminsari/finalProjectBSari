@@ -12,49 +12,35 @@ from .forms import SignUpForm
 
 # IndexPage
 def index(request):
-    try:
-        url = "https://netdetective.p.rapidapi.com/query"
-        headers = {
-            "X-RapidAPI-Key": NETDETECTIVE_API_KEY,
-            "X-RapidAPI-Host": "netdetective.p.rapidapi.com"
-        }
+    retrieved_data = {}
+    # Check if the user is authenticated & If the user is already logged in the message will be displayed once.
+    if request.user.is_authenticated and not request.session.get('has_seen_welcome_message', False):
+        messages.info(request, "Welcome back, " + request.user.username + "!")
+        request.session['has_seen_welcome_message'] = True
 
-        response = requests.get(url, headers=headers)
+    # The success message is displayed once.
+    if not request.session.get('has_seen_api_message', False):
+        try:
+            url = "https://netdetective.p.rapidapi.com/query"
+            headers = {
+                "X-RapidAPI-Key": NETDETECTIVE_API_KEY,
+                "X-RapidAPI-Host": "netdetective.p.rapidapi.com"
+            }
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                messages.success(request, "Data successfully retrieved from the API.")
+                request.session['has_seen_api_success_message'] = True
+                retrieved_data = response.json().get('result', {})
+            else:
+                retrieved_data = {}
 
-        if response.status_code == 200:
-            messages.success(request, "Data successfully retrieved from the API.")
-            retrieved_data = response.json()['result']
-        else:
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 401:
+                messages.error(request, "Unauthorized access. Please check your API key.")
+            else:
+                messages.warning(request, f"API Error: {e}")
             retrieved_data = {}
-
-    except requests.exceptions.HTTPError as e:
-
-        if e.response.status_code == 401:
-            messages.error(request, "Unauthorized access. Please check your API key.")
-        else:
-            messages.warning(request, f"API Error: {e}")
-
-        retrieved_data = {}
-
     return render(request, 'api/index.html', {'data': retrieved_data})
-
-    #     if response.status_code == 200:
-    #         messages.add_message(request, messages.SUCCESS, "Data successfully retrieved from the API.")
-    #         retrieved_data = response.json()['result']
-    #     else:
-    #         retrieved_data = {}
-    #
-    # except requests.exceptions.HTTPError as e:
-    #     # Using error code to display specific message
-    #     if e.response.status_code == 401:
-    #         messages.add_message(request, messages.ERROR, "Unauthorized access. Please check your API key.")
-    #         # messages.error = "Unauthorized access. Please check your API key."
-    #     else:
-    #         # messages.error = f"API Error: {e}"
-    #         messages.add_message(request, messages.ERROR, f"API Error: {e}")
-    #
-    #     retrieved_data = {}
-    # return render(request, 'api/index.html', {'data': retrieved_data})
 
 
 @login_required()
