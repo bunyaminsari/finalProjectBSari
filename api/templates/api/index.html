@@ -1,8 +1,12 @@
+{# Extend the base.html #}
 {% extends 'base.html' %}
+{#Load static CSS styles if available.#}
 {% load static %}
+{#Change the title of the page on different pages.#}
 {% block title %}
     Homepage
 {% endblock %}
+
 
 {% block content %}
     {# Message - Alerts #}
@@ -14,6 +18,7 @@
         {% endfor %}
     {% endif %}
 
+{#    If the data retrieved from the API it will be displayed below. #}
 <div>
     {% if data %}
         <div class="ui text container">
@@ -51,11 +56,11 @@
         <p>No data available.</p>
     {% endif %}
 </div>
-
-{% if user.is_authenticated %}
-    <!-- Content visible to authenticated users -->
+{#    This content is for the authentication users. #}
+{% if  user.is_authenticated %}
         <div class="ui text container">
-        <!-- Display data retrieved from the API -->
+        <div class="ui dividing header"></div>
+            <br>
         {% if data %}
             <table class="ui very basic collapsing celled table">
                 <thead>
