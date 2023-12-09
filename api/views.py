@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
-from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from .api_keys import NETDETECTIVE_API_KEY
 from .models import Profile, Query
@@ -97,6 +97,13 @@ def profile_view(request):
     }
 
     return render(request, 'api/profile.html', context)
+
+
+def logout(request):
+    django_logout(request)
+    messages.info(request, "You have been successfully logged out.")
+    return redirect('index')
+    # return render(request, 'registration/logout.html')
 
 
 def signup(request):

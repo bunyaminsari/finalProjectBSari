@@ -8,25 +8,28 @@
 {% endblock %}
 
 {% block content %}
+<div class="ui text container">
     {% if messages %}
         {% for message in messages %}
-            <div class="ui {% if message.tags == 'info' %}info{% elif message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% endif %} tiny message">
+            <div class="ui {% if message.tags == 'info' %}info{% elif message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% endif %} mini message">
                 <i class="close icon"></i>
-                <div class="header">
+                <div>
                     {% if message.tags == 'error' %}
                         Error!
                     {% elif message.tags == 'success' %}
-                        Success!
+                        <i class="cloud download icon"></i>
                     {% elif message.tags == 'warning' %}
                         Warning!
                     {% elif message.tags == 'info' %}
-                        Hi there!
+                       <i class="users icon"></i>
                     {% endif %}
+                {{ message }}
                 </div>
-                <p>{{ message }}</p>
             </div>
         {% endfor %}
     {% endif %}
+    <br>
+</div>
 
 
 {#    If the data retrieved from the API it will be displayed below. #}
