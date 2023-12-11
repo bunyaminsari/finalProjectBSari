@@ -1,3 +1,6 @@
+# INF601 - Advanced Programming in Python
+# Bunyamin Sari
+# finalProject
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save

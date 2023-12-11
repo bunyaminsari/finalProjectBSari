@@ -1,3 +1,6 @@
+# INF601 - Advanced Programming in Python
+# Bunyamin Sari
+# finalProject
 import requests
 from django.shortcuts import render, redirect
 from django.contrib import messages

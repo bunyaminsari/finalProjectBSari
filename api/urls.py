@@ -1,3 +1,6 @@
+# INF601 - Advanced Programming in Python
+# Bunyamin Sari
+# finalProject
 # myapp/urls.py
 
 from django.urls import path
