@@ -2,9 +2,9 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from .api_keys import NETDETECTIVE_API_KEY
 from .models import Profile, Query
 from .forms import SignUpForm
@@ -117,3 +117,9 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+class ApiLoginView(LoginView):
+    def form_invalid(self, form):
+        messages.error(self.request, "Invalid username or password. Please try again.")
+        return super().form_invalid(form)

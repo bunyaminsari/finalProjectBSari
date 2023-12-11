@@ -29,14 +29,6 @@
 
 {% block content %}
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}`
-
 <div class="ui middle aligned center aligned grid">
   <div class="column">
       <div class="ui center aligned container">
@@ -64,7 +56,16 @@
       </div>
       <div class="ui error message"></div>
     </form>
-    <div class="ui message">
+      <div>
+          {% if messages %}
+            <div class="ui error message">
+                {% for message in messages %}
+                    <p class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+      </div>
+    <div class="ui info message">
       New to us? <a href="{% url 'signup' %}">Sign Up | </a>
       Back? <a href="{% url 'index' %}">Home</a>
     </div>
