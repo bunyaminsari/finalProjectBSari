@@ -73,6 +73,12 @@
                 {% for message in messages %}
                     <p>{{ message }}</p>
                 {% endfor %}
+                <div class="ui list mini">
+                  <div class="item">The password must be at least 8 characters long.</div>
+                  <div class="item">The password cannot be entirely numeric.</div>
+                  <div class="item">The password cannot be too common.</div>
+                  <div class="item">The password cannot be too similar to the username.</div>
+                </div>
             </div>
         {% endif %}
       </div>
