@@ -46,6 +46,7 @@ def index(request):
 @login_required()
 # Custom IP Query Page
 def query(request):
+    query = None # Initialize the query
     result = None  # Initialize result variable
     if request.method == 'POST':
         ip_address = request.POST.get('ip_address')
@@ -79,7 +80,7 @@ def query(request):
             result = None
     queries = Query.objects.filter(user=request.user)
     last_five_queries = Query.objects.all().order_by('-id')[:5][::-1]
-    return render(request, 'api/query.html', {'result': result, 'queries': last_five_queries})
+    return render(request, 'api/query.html', {'result': result, 'queries': last_five_queries, 'query': query})
 
 
 # Profile Page
