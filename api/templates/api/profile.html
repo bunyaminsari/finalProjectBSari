@@ -34,23 +34,34 @@
             </div>
         </div>
         <div class="column">
-            {% if user_queries %}
-                <div class="ui text tiny">Queries made by <strong>{{ user.username }}</strong></div>
+        {% if user_queries %}
+            <div class="ui text tiny">Queries made by <strong>{{ user.username }}</strong></div>
                 <div class="ui celled list tiny">
-                {% for query in user_queries %}
-                  <div class="item"><strong>{{ query.ip_address }}</strong> at {{ query.created_at }}</div>
-                {% endfor %}
+                    {% for query in user_queries %}
+                        <div class="item">
+                            <div class="ui grid">
+                                <div class="twelve wide column">
+                                    <strong>{{ query.ip_address }}</strong> at {{ query.created_at }}
+                                </div>
+                                <div class="four wide column">
+                                    <form method="post" action="{% url 'query_delete' query.id %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="ui mini circular red basic button">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% else %}
-                <p>No queries found for {{ user.username }}.</p>
-            {% endif %}
+        {% else %}
+            <p>No queries found for {{ user.username }}.</p>
+        {% endif %}
+
+
+
         </div>
       </div>
     </div>
-
-
-
-
 
     <br>
     <br>

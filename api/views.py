@@ -2,12 +2,12 @@
 # Bunyamin Sari
 # finalProject
 import requests
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
+
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from django.core.exceptions import ValidationError
 from .api_keys import NETDETECTIVE_API_KEY
 from .models import Profile, Query
 from .forms import SignUpForm
@@ -124,6 +124,17 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+@login_required()
+def query_delete(request, query_id):
+    query = get_object_or_404(Query, pk=query_id, user=request.user)
+
+    if request.method == 'POST':
+        query.delete()
+        return redirect('profile')  # Redirect to the product list view after deletion
+
+    # return render(request, 'api/profile.html', {'query': query})
 
 
 # Login Validation.

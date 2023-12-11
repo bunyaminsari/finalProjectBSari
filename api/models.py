@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
+    # Automatically create and save a Profile instance whenever a new User instance is created or updated.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     @property
