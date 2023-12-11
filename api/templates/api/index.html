@@ -9,6 +9,7 @@
 
 {% block content %}
 <div class="ui text container">
+{# Alerts & Messages#}
     {% if messages %}
         {% for message in messages %}
             <div class="ui {% if message.tags == 'info' %}info{% elif message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% endif %} mini message">
@@ -31,7 +32,6 @@
     <br>
 </div>
 
-
 {#    If the data retrieved from the API it will be displayed below. #}
 <div>
     {% if data %}
@@ -43,7 +43,7 @@
                 <h2 class="first">Your IP address:  <span class="ui blue header">{{ data.ipAddress }}</span></h2>
             </div>
         <br>
-        <table class="ui very basic collapsing celled table">
+        <table class="ui very basic collapsing celled table"> {# The content displayed to unauthenticated visitors. #}
           <thead>
             <tr>
                 <th></th>
@@ -54,12 +54,12 @@
           <tbody>
             <tr>
               <td><div class="content">VPN</div></td>
-              <td>{{ data.isVpn }}</td>
+                <td>{% if data.isVpn %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
               <td class="ui label">VPN (Virtual Private Network): A secure network connection that allows users to access the internet privately and securely, encrypting data as it travels between the user's device and the VPN server.</td>
             </tr>
             <tr>
               <td><div class="content">Data Center</div></td>
-              <td>{{ data.isDataCenter }}</td>
+                <td>{% if data.isDataCenter %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
               <td class="ui label">Data Center: A facility used to house computer systems, servers, and related components, storing and managing a large amount of data, often providing services like data storage, processing, and distribution.</td>
             </tr>
           </tbody>
@@ -67,7 +67,7 @@
         <br>
 </div>
     {% else %}
-        <p>No data available.</p>
+        <p>No data available.</p> {# If theres is not data retrieved from the API. #}
     {% endif %}
 </div>
 {#    This content is for the authentication users. #}
@@ -87,107 +87,107 @@
                 <tbody>
                     <tr>
                         <td><div class="content">Brute Force</div></td>
-                        <td>{{ data.isBruteForce }}</td>
+                        <td>{% if data.isBruteForce %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Brute Force: A method used in hacking where attackers attempt to gain access to systems or accounts by trying numerous password combinations or using various techniques to break security measures.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Spam</div></td>
-                        <td>{{ data.isSpam }}</td>
+                        <td>{% if data.isSpam %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Spam: Unsolicited or unwanted emails or messages often sent in bulk, often containing deceptive or malicious content.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Bogon</div></td>
-                        <td>{{ data.isBogon }}</td>
+                        <td>{% if data.isBogon %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Bogon: IP addresses that are either invalid, not allocated, or should not appear in internet routing tables, often used by attackers to obfuscate their identity.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Proxy HTTP</div></td>
-                        <td>{{ data.isProxyHttp }}</td>
+                        <td>{% if data.isProxyHttp %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Proxy HTTP: A proxy server that handles HTTP requests, acting as an intermediary between a user's device and the internet, often used for anonymity or to bypass restrictions.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Proxy Socks</div></td>
-                        <td>{{ data.isProxySocks }}</td>
+                        <td>{% if data.ProxySocks %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Proxy Socks: A proxy server protocol used for general purpose proxying, supporting multiple connection protocols and providing flexibility in routing traffic.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Proxy Web</div></td>
-                        <td>{{ data.isProxyWeb }}</td>
+                        <td>{% if data.isProxyWeb%}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Proxy Web: A proxy server focused on handling web-based traffic, often used to hide user IP addresses or bypass content restrictions.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Proxy Other</div></td>
-                        <td>{{ data.isProxyOther }}</td>
+                        <td>{% if data.isProxyOther %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Proxy Other: Other types of proxy servers not specifically categorized, providing alternative methods for routing network traffic.</td>
                     </tr>
                     <tr>
                         <td><div class="content">SMTP Relay</div></td>
-                        <td>{{ data.isSmtpRelay }}</td>
+                        <td>{% if data.isSmtpRelay %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">SMTP Relay: A process used to forward emails from one mail server to another, often exploited by spammers to send large volumes of emails.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Web Vulnerable</div></td>
-                        <td>{{ data.isWebVuln }}</td>
+                        <td>{% if data.isWebVuln %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Web Vulnerable: A state indicating potential weaknesses or vulnerabilities in web systems, making them susceptible to cyber attacks or exploitation.</td>
                     </tr>
                     <tr>
                         <td><div class="content">NoMail</div></td>
-                        <td>{{ data.isNoMail }}</td>
+                        <td>{% if data.isNoMail %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">NoMail: Indicates issues related to mail delivery or mail server configuration.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Zombie</div></td>
-                        <td>{{ data.isZombie }}</td>
+                        <td>{% if data.isZombie %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Zombie: A compromised computer or device under the control of a hacker or attacker, often used for malicious purposes like launching attacks or sending spam.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Potential Zombie</div></td>
-                        <td>{{ data.isPotentialZombie }}</td>
+                        <td>{% if data.isPotentialZombie %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Potential Zombie: A computer or device showing signs of vulnerability to becoming a compromised system.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Dynamic</div></td>
-                        <td>{{ data.isDynamic }}</td>
+                        <td>{% if data.isDynamic %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Dynamic: Refers to IP addresses that are not static and may change.</td>
                     </tr>
                     <tr>
                         <td><div class="content">No Server</div></td>
-                        <td>{{ data.isNoServer }}</td>
+                        <td>{% if data.isNoServer %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">No Server: Indicates a lack of a server or service for the specified IP address.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Bad Configuration</div></td>
-                        <td>{{ data.isBadConf }}</td>
+                        <td>{% if data.isBadConf %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Bad Configuration: Suggests a misconfigured or improperly set up server or system.</td>
                     </tr>
                     <tr>
                         <td><div class="content">DDoS</div></td>
-                        <td>{{ data.isDDos }}</td>
+                        <td>{% if data.isDDos%}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">DDoS (Distributed Denial of Service): Signifies a potential attack attempting to disrupt services by overwhelming a target with a flood of traffic.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Open DNS</div></td>
-                        <td>{{ data.isOpenDns }}</td>
+                        <td>{% if data.isOpenDns %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Open DNS: Indicates the usage of public or open DNS servers for domain name resolution.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Compromised</div></td>
-                        <td>{{ data.isCompromised }}</td>
+                        <td>{% if data.isCompromised %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Compromised: Suggests a system or network that has been breached or affected by unauthorized access or malicious activity.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Worm</div></td>
-                        <td>{{ data.isWorm }}</td>
+                        <td>{% if data.isWorm %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Worm: Represents a self-replicating malware or malicious software that can spread across systems without user intervention.</td>
                     </tr>
                     <tr>
                         <td><div class="content">IRC Drone</div></td>
-                        <td>{{ data.isIrcDrone }}</td>
+                        <td>{% if data.isIrcDrone %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">IRC (Internet Relay Chat) Drone: Signifies a computer or device infected with malware, controlled remotely through IRC channels for malicious purposes.</td>
                     </tr>
                     <tr>
                         <td><div class="content">Not Spam</div></td>
-                        <td>{{ data.isNotSpam }}</td>
+                        <td>{% if data.isNotSpam %}<i class="green check icon"></i>{% else %}<i class="red x icon"></i>{% endif %}</td>
                         <td class="ui label">Not Spam: Indicates that the IP address is not identified as a source of spam activity.</td>
                     </tr>
                 </tbody>
