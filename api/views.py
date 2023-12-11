@@ -92,9 +92,13 @@ def profile_view(request):
     except Profile.DoesNotExist:
         user_profile = None
 
+    # Retrieve queries made by the current user
+    user_queries = Query.objects.filter(user=user)
+
     context = {
         'user': user,
         'user_profile': user_profile,
+        'user_queries': user_queries,
     }
 
     return render(request, 'api/profile.html', context)

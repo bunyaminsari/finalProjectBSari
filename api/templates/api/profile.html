@@ -6,29 +6,50 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="ui card">
-  <div class="image">
-    <img src="{% static 'api/profile.jpg' %}" alt="Profile">
-  </div>
-  <div class="content">
-    <a class="header">{{ user.first_name }} {{ user.last_name }}</a>
-    <div class="description">
-      <i class="user icon"></i> {{ user.username }}
+    <div class="ui two column centered grid">
+      <div class="column"></div>
+      <div class="four column centered row">
+        <div class="column">
+            <div class="ui card">
+              <div class="image">
+                <img src="{% static 'api/profile.jpg' %}" alt="Profile">
+              </div>
+              <div class="content">
+                <a class="header">{{ user.first_name }} {{ user.last_name }}</a>
+                <div class="description">
+                  <i class="user icon"></i> {{ user.username }}
+                </div>
+                  <a>
+                  <i class="envelope icon"></i>
+                  {{ user.email }}
+                </a>
+              </div>
+              <div class="extra content">
+                <div class="description">
+                  <span class="date">Last log in: {{ user.last_login }}</span>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="column">
+            {% if user_queries %}
+                <div class="ui text tiny">Queries made by <strong>{{ user.username }}</strong></div>
+                <div class="ui celled list tiny">
+                {% for query in user_queries %}
+                  <div class="item"><strong>{{ query.ip_address }}</strong> at {{ query.created_at }}</div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>No queries found for {{ user.username }}.</p>
+            {% endif %}
+        </div>
+      </div>
     </div>
-      <a>
-      <i class="envelope icon"></i>
-      {{ user.email }}
-    </a>
-  </div>
-  <div class="extra content">
-    <div class="description">
-      <span class="date">Last log in: {{ user.last_login }}</span>
-    </div>
-  </div>
-</div>
-    <br>
-    <br>
-    <br>
 
+
+
+
+
+    <br>
+    <br>
 {% endblock %}
