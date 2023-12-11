@@ -1,10 +1,10 @@
 import requests
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.core.exceptions import ValidationError
 from .api_keys import NETDETECTIVE_API_KEY
 from .models import Profile, Query
 from .forms import SignUpForm
@@ -104,7 +104,6 @@ def logout(request):
     django_logout(request)
     messages.info(request, "You have been successfully logged out.")
     return redirect('index')
-    # return render(request, 'registration/logout.html')
 
 
 def signup(request):
@@ -112,13 +111,15 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirect to a success page, login page, or any desired URL after sign-up
             return redirect('login')  # Redirect to the login page after successful sign-up
+        else:
+            messages.error(request, "Invalid form. Please try again.")
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
 
+# Login Validation.
 class ApiLoginView(LoginView):
     def form_invalid(self, form):
         messages.error(self.request, "Invalid username or password. Please try again.")
